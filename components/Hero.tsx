@@ -5,85 +5,67 @@ interface HeroProps {
   onWatchShowreel: () => void;
   title?: string;
   subtitle?: string;
+  // Added bgUrl to support dynamic background images passed from App.tsx
   bgUrl?: string;
 }
 
-const Hero: React.FC<HeroProps> = ({ onWatchShowreel, title, subtitle }) => {
+const Hero: React.FC<HeroProps> = ({ onWatchShowreel, title, subtitle, bgUrl }) => {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-32 pb-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="mb-10 reveal active">
-          <div className="flex items-center space-x-3">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            <span className="text-[11px] font-black tracking-[0.5em] uppercase text-white/40">
-              Film Editor / Cinematic Strategist
-            </span>
-          </div>
+    <section className="relative min-h-screen flex flex-col justify-end px-6 md:px-24 pb-24 overflow-hidden">
+      {/* Background container for dynamic hero image */}
+      {bgUrl && (
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={bgUrl} 
+            alt="Hero Background" 
+            className="w-full h-full object-cover opacity-[0.15]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
         </div>
-        
-        <div className="relative mb-16">
-          <h1 className="text-[16vw] md:text-[12vw] font-black leading-[0.8] tracking-[-0.07em] uppercase reveal active transition-delay-200">
-            Visual<br/>
-            <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>Poetry.</span>
-          </h1>
-          <div className="absolute top-0 right-0 hidden lg:block reveal active transition-delay-300">
-             <div className="text-right">
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4">Experience</p>
-                <span className="text-5xl font-serif italic text-blue-600">4+ Years</span>
-             </div>
-          </div>
+      )}
+
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl px-6 pointer-events-none z-[1]">
+        <h1 className="text-[18vw] md:text-[15vw] font-black leading-[0.75] tracking-[-0.08em] uppercase opacity-[0.03] select-none">
+          CREATIVE<br/>STORYTELLER
+        </h1>
+      </div>
+
+      <div className="relative z-10 max-w-7xl w-full mx-auto">
+        <div className="reveal active transition-delay-100">
+          <span className="text-[10px] font-black tracking-[0.6em] uppercase text-blue-600 mb-6 block">
+            EST. 2022 / BGD
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
-          <div className="md:col-span-6 reveal active transition-delay-400">
-            <p className="text-2xl md:text-3xl font-light text-white/70 leading-[1.3] tracking-tight max-w-xl mb-12">
-              Crafting <span className="text-white font-normal underline decoration-blue-600/50 decoration-2 underline-offset-8">rhythmic experiences</span> that turn viewers into believers. Based in Khulna, serving the globe.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+          <div className="lg:col-span-8">
+            <h2 className="text-6xl md:text-[8vw] font-black leading-[0.9] tracking-[-0.06em] uppercase reveal active transition-delay-200">
+              {title || "Visual Poetry."}
+            </h2>
+            <p className="mt-12 text-xl md:text-2xl font-light text-white/40 max-w-2xl reveal active transition-delay-300">
+              {subtitle || "Safikul Islam specializes in fluid cinematic cuts and rhythmic narratives that resonate globally."}
             </p>
-            
-            <div className="flex flex-wrap items-center gap-10">
-              <button 
-                onClick={onWatchShowreel}
-                className="group flex items-center space-x-4 text-[11px] font-black uppercase tracking-widest"
-              >
-                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-                <span>The Showreel</span>
-              </button>
-              
-              <div className="flex items-center space-x-8">
-                <a 
-                  href="https://cal.com/safikulislam" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-[11px] font-black uppercase tracking-widest border-b border-white/20 pb-1 hover:border-blue-500 transition-all"
-                >
-                  Book Meeting
-                </a>
-                <a 
-                  href="tel:+8801568054539"
-                  className="text-[11px] font-black uppercase tracking-widest text-white/30 hover:text-white transition-all flex items-center space-x-2"
-                >
-                  <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.15 15.15 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.72 11.72 0 003.7 1 1 1 0 01.91 1v3.94a1 1 0 01-1 1A16 16 0 013 4a1 1 0 011-1h3.94a1 1 0 011 .91 11.72 11.72 0 001 3.7 1 1 0 01-.27 1.11l-2.2 2.2z"/></svg>
-                  <span>Direct Call</span>
-                </a>
-              </div>
-            </div>
           </div>
           
-          <div className="md:col-span-6 flex justify-end reveal active transition-delay-600">
-            <div className="relative group overflow-hidden rounded-sm w-full max-w-sm aspect-[4/5] bg-neutral-900 border border-white/5">
-              <img 
-                src="https://images.unsplash.com/photo-1492691523567-6170f229c411?q=80&w=2070&auto=format&fit=crop" 
-                className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
-                alt="Studio"
-              />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                 <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/10 rotate-90">Studio View</span>
-              </div>
+          <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end space-y-8 reveal active transition-delay-400">
+            <button 
+              onClick={onWatchShowreel}
+              className="group relative overflow-hidden px-10 py-5 bg-white text-black text-[11px] font-black uppercase tracking-[0.3em] transition-all hover:bg-blue-600 hover:text-white"
+            >
+              <span className="relative z-10">Play Showreel</span>
+            </button>
+            <div className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
+              Scroll to Explore Works
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Side Label - Very Niki Sadeki */}
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 hidden md:block rotate-90 origin-right">
+        <span className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
+          Safikul Islam — Portfolio 2026
+        </span>
       </div>
     </section>
   );

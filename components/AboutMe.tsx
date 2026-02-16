@@ -3,93 +3,63 @@ import React from 'react';
 
 const AboutMe: React.FC = () => {
   return (
-    <section id="about" className="py-48 bg-[#030303] overflow-hidden">
+    <section className="py-64 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
-          
-          <div className="lg:col-span-4 reveal">
-            <div className="sticky top-32">
-              <span className="text-blue-600 font-black tracking-[0.4em] text-[10px] uppercase mb-8 block">Information</span>
-              <h2 className="text-6xl font-black uppercase tracking-tighter mb-12 leading-[0.9]">
-                Safikul<br/>Islam.
-              </h2>
-              <p className="text-white/40 text-lg leading-relaxed mb-12">
-                A storyteller by nature, an editor by choice. Four years of pushing pixels to perfection.
-              </p>
-              
-              <div className="space-y-4">
-                 <div className="flex justify-between items-end border-b border-white/5 pb-4">
-                    <span className="text-[10px] uppercase tracking-widest text-white/20 font-black">Experience</span>
-                    <span className="text-sm font-bold">4+ Years Full-Time</span>
-                 </div>
-                 <div className="flex justify-between items-end border-b border-white/5 pb-4">
-                    <span className="text-[10px] uppercase tracking-widest text-white/20 font-black">Current Status</span>
-                    <span className="text-sm font-bold text-green-500">Open for Bookings</span>
-                 </div>
-                 <div className="flex justify-between items-end border-b border-white/5 pb-4">
-                    <span className="text-[10px] uppercase tracking-widest text-white/20 font-black">Reach</span>
-                    <span className="text-sm font-bold">+8801568054539</span>
-                 </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
+          <div className="lg:col-span-12 reveal">
+            <h2 className="text-[12vw] font-black uppercase tracking-[-0.08em] leading-[0.8] mb-32">
+              Beyond<br/><span className="text-blue-600">The Frame.</span>
+            </h2>
+          </div>
+
+          <div className="lg:col-span-5 reveal transition-delay-200">
+            <div className="aspect-[4/5] bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-1000 overflow-hidden">
+               <img 
+                 src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1920&auto=format&fit=crop" 
+                 className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity"
+                 alt="Safikul"
+               />
+            </div>
+            <p className="mt-8 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Safikul Islam — Creative Director / Lead Editor</p>
+          </div>
+
+          <div className="lg:col-span-7 reveal transition-delay-400 space-y-16">
+            <h3 className="text-4xl md:text-5xl font-light leading-tight text-white/70">
+              Editing is the <span className="text-white">final rewrite</span>. I transform raw vision into rhythmic cinematic experiences that capture the essence of the story.
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-white/5">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 block mb-6">Expertise</span>
+                <p className="text-white/40 leading-relaxed">
+                  Focusing on professional YouTube narrative editing, high-end commercials, and event highlights with 4+ years of industry pressure.
+                </p>
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 block mb-6">Philosophy</span>
+                <p className="text-white/40 leading-relaxed">
+                  Every cut must serve the heart. If a frame doesn't breathe life into the narrative, it doesn't belong.
+                </p>
               </div>
             </div>
-          </div>
 
-          <div className="lg:col-span-8 reveal">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-               <div className="space-y-12">
-                  <div className="aspect-[3/4] bg-neutral-900 border border-white/5 rounded-sm overflow-hidden group">
-                     <img 
-                       src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1920&auto=format&fit=crop" 
-                       className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 transition-all duration-700"
-                       alt="Safikul"
-                     />
-                  </div>
-                  <div className="p-8 border border-white/5 bg-white/[0.02]">
-                     <h3 className="text-xl font-black uppercase tracking-tight mb-4">Philosophy</h3>
-                     <p className="text-white/40 text-base leading-relaxed">
-                       Editing isn't just about software—it's about understanding the heartbeat of the narrative. I treat every frame as a crucial beat in a larger rhythm.
-                     </p>
-                  </div>
-               </div>
-               
-               <div className="space-y-12 md:pt-24">
-                  <div className="p-8 border border-white/5 bg-white/[0.02]">
-                     <h3 className="text-xl font-black uppercase tracking-tight mb-4">The Stack</h3>
-                     <p className="text-white/40 text-base leading-relaxed mb-8">
-                       Leveraging industry-standard tools to deliver cinematic excellence. Adobe Suite expert.
-                     </p>
-                     <div className="flex flex-wrap gap-4">
-                        <span className="text-[10px] font-black uppercase tracking-widest border border-blue-500/30 px-3 py-1.5 rounded-full">Premiere Pro</span>
-                        <span className="text-[10px] font-black uppercase tracking-widest border border-blue-500/30 px-3 py-1.5 rounded-full">After Effects</span>
-                        <span className="text-[10px] font-black uppercase tracking-widest border border-blue-500/30 px-3 py-1.5 rounded-full">Audacity</span>
-                        <span className="text-[10px] font-black uppercase tracking-widest border border-blue-500/30 px-3 py-1.5 rounded-full">Filmora</span>
-                     </div>
-                  </div>
-                  <div className="aspect-square bg-neutral-900 border border-white/5 rounded-sm flex items-center justify-center p-12">
-                     <div className="text-center">
-                        <span className="text-6xl font-black text-white/5 leading-none">SFKL</span>
-                        <span className="block text-[10px] uppercase tracking-[0.4em] text-blue-600 mt-4">Legacy in Motion</span>
-                     </div>
-                  </div>
+            <div className="pt-24">
+               <div className="flex flex-wrap gap-8">
+                  {['Premiere Pro', 'After Effects', 'Audacity', 'Filmora'].map(tool => (
+                    <span key={tool} className="text-[11px] font-black uppercase tracking-[0.3em] border-b border-white/10 pb-2 hover:border-blue-600 transition-all cursor-default">{tool}</span>
+                  ))}
                </div>
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* Marquee to fill space at bottom of section */}
-      <div className="mt-48 py-12 border-y border-white/5 bg-white/[0.01]">
-         <div className="flex overflow-hidden whitespace-nowrap">
-            <div className="animate-marquee flex items-center space-x-24">
-               <span className="text-8xl md:text-[12vw] font-black uppercase tracking-tighter opacity-5 select-none italic">Cinematic.</span>
-               <span className="text-8xl md:text-[12vw] font-black uppercase tracking-tighter opacity-5 select-none italic">Fluid.</span>
-               <span className="text-8xl md:text-[12vw] font-black uppercase tracking-tighter opacity-5 select-none italic">Impactful.</span>
-               <span className="text-8xl md:text-[12vw] font-black uppercase tracking-tighter opacity-5 select-none italic">Cinematic.</span>
-               <span className="text-8xl md:text-[12vw] font-black uppercase tracking-tighter opacity-5 select-none italic">Fluid.</span>
-               <span className="text-8xl md:text-[12vw] font-black uppercase tracking-tighter opacity-5 select-none italic">Impactful.</span>
-            </div>
-         </div>
+      <div className="mt-64 py-16 border-y border-white/5 flex overflow-hidden">
+        <div className="animate-marquee whitespace-nowrap flex space-x-24">
+          {['CINEMATIC', 'FLUID', 'NARRATIVE', 'RYTHMIC', 'CINEMATIC', 'FLUID', 'NARRATIVE', 'RYTHMIC'].map((text, i) => (
+            <span key={i} className="text-[15vw] font-black uppercase tracking-tighter opacity-[0.03] italic">{text}.</span>
+          ))}
+        </div>
       </div>
     </section>
   );

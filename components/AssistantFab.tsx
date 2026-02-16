@@ -21,22 +21,17 @@ const AssistantFab: React.FC = () => {
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
-    const apiKey = (process.env as any).API_KEY;
-    if (!apiKey) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "My AI brain is offline, but you can book a meeting directly here: https://cal.com/safikulislam" }]);
-      return;
-    }
-
     const userMessage = input;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsTyping(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey });
+      // Correctly initializing GoogleGenAI using direct access to process.env.API_KEY as per coding guidelines
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: [{ parts: [{ text: userMessage }] }],
+        contents: userMessage,
         config: {
           systemInstruction: `You are Safikul Islam's Personal AI Concierge.
           Safikul is a Professional Film Editor with 4 years of full-time experience.
@@ -50,6 +45,7 @@ const AssistantFab: React.FC = () => {
         }
       });
 
+      // Extracting generated text directly from the response object property as per guidelines
       const aiText = response.text || "Please book a meeting with Safikul at https://cal.com/safikulislam for immediate help!";
       setMessages(prev => [...prev, { role: 'assistant', content: aiText }]);
     } catch (error) {

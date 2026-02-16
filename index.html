@@ -4,13 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safikul Islam — Professional Film Editor & Cinematic Storyteller</title>
+    <title>Safikul Islam — Film Editor & Digital Artist</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Safikul Islam is a professional film editor with 4+ years of experience. High-impact cinematic editing for brands and creators worldwide.">
-    <meta name="keywords" content="Film Editor, Video Editor, Cinematic Storytelling, Safikul Islam, Premiere Pro, After Effects">
-    <meta name="author" content="Safikul Islam">
-
+    <meta name="description" content="Safikul Islam is a professional film editor. High-impact cinematic editing for brands and creators worldwide.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,100 +15,60 @@
     <style>
         :root {
             --accent: #2563eb;
-            scroll-padding-top: 6rem;
         }
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #000000;
+            background-color: #050505;
             color: #FFFFFF;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Noise Texture Overlay */
-        body::before {
-            content: "";
+        /* Custom Thin Scrollbar */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* Niki Sadeki Vibe: Subtle Light Leak */
+        .light-leak {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.04;
+            background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
             pointer-events: none;
-            z-index: 9999;
+            z-index: 1;
         }
 
-        h1, h2, h3 {
-            font-weight: 900;
-            letter-spacing: -0.04em;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Animated Ambient Background */
-        .ambient-glow {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 0% 100%, rgba(30, 58, 138, 0.05) 0%, transparent 40%);
-            pointer-events: none;
-        }
-
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-        }
-        
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
         
-        .img-container {
+        .image-reveal {
             overflow: hidden;
             position: relative;
-            background: #0a0a0a;
         }
-        .img-container img {
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .image-reveal img {
+            transform: scale(1.1);
+            transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+            filter: grayscale(100%);
         }
-        .img-container:hover img {
-            transform: scale(1.08);
+        .image-reveal:hover img {
+            transform: scale(1);
+            filter: grayscale(0%);
         }
 
+        /* Marquee Speed */
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        /* Page Transitions */
-        .page-transition-enter {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        .page-transition-enter-active {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 500ms, transform 500ms;
-        }
+        .animate-marquee { animation: marquee 40s linear infinite; }
     </style>
 <script type="importmap">
 {
@@ -127,27 +83,20 @@
 </script>
 </head>
 <body>
-    <div class="ambient-glow"></div>
+    <div class="light-leak"></div>
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
     <script>
-        const observerOptions = { threshold: 0.05 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        // Helper to refresh observer for new routes
         window.refreshReveals = () => {
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         };
-
-        window.addEventListener('load', () => {
-            window.refreshReveals();
-        });
+        window.addEventListener('load', window.refreshReveals);
     </script>
 </body>
 </html>

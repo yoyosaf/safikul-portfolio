@@ -4,39 +4,32 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const linkClass = ({ isActive }: { isActive: boolean }) => 
-    `text-[10px] font-black uppercase tracking-widest transition-colors ${isActive ? 'text-blue-500' : 'text-white/40 hover:text-white'}`;
+    `text-[9px] font-black uppercase tracking-[0.4em] transition-all hover:tracking-[0.5em] ${isActive ? 'text-blue-600' : 'text-white/30 hover:text-white'}`;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] px-6 md:px-12 py-8 flex items-center justify-between pointer-events-none">
+    <nav className="fixed top-0 left-0 w-full z-[100] px-6 md:px-12 py-10 flex items-center justify-between mix-blend-difference pointer-events-none">
       <Link to="/" className="pointer-events-auto group">
-        <div className="flex flex-col">
-          <span className="text-xl font-black tracking-[-0.05em] leading-none">
-            SAFIKUL <span className="text-blue-600">ISLAM</span>
-          </span>
-          <span className="text-[9px] font-bold tracking-[0.4em] uppercase text-white/40 mt-1 transition-colors group-hover:text-blue-500">
-            FILM EDITOR
-          </span>
-        </div>
+        <span className="text-lg font-black tracking-[-0.05em] uppercase">
+          SF<span className="text-blue-600">KL</span>
+        </span>
       </Link>
       
-      <div className="hidden md:flex items-center space-x-12 pointer-events-auto bg-black/50 backdrop-blur-xl border border-white/5 px-8 py-3 rounded-full">
-        <NavLink to="/work" className={linkClass}>Works</NavLink>
-        <NavLink to="/about" className={linkClass}>Info</NavLink>
-        <NavLink to="/services" className={linkClass}>Expertise</NavLink>
+      <div className="hidden md:flex items-center space-x-12 pointer-events-auto">
+        <NavLink to="/work" className={linkClass}>Work</NavLink>
+        <NavLink to="/about" className={linkClass}>About</NavLink>
+        <NavLink to="/services" className={linkClass}>Services</NavLink>
+        <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+      </div>
+
+      <div className="pointer-events-auto">
         <a 
           href="https://cal.com/safikulislam" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-[10px] font-black uppercase tracking-widest text-blue-500 hover:text-white transition-colors"
+          className="text-[9px] font-black uppercase tracking-[0.4em] bg-white text-black px-6 py-3 hover:bg-blue-600 hover:text-white transition-all"
         >
-          Book Meeting
+          Book
         </a>
-      </div>
-
-      <div className="pointer-events-auto">
-        <NavLink to="/contact" className={linkClass}>
-          Connect
-        </NavLink>
       </div>
     </nav>
   );
