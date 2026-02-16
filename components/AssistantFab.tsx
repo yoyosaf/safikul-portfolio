@@ -7,7 +7,7 @@ const AssistantFab: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hi there! I am Safikul\'s AI assistant. How can I help you today?' }
+    { role: 'assistant', content: 'Hi! I am Safikul\'s AI assistant. I can tell you about his 4 years of experience or help you book a meeting to discuss your next cinematic project!' }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -21,10 +21,9 @@ const AssistantFab: React.FC = () => {
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
-    // Safety check for API Key to prevent app-wide crash
-    const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+    const apiKey = (process.env as any).API_KEY;
     if (!apiKey) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "I'm currently offline as my configuration is being updated. Please use the WhatsApp button below!" }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "My AI brain is offline, but you can book a meeting directly here: https://cal.com/safikulislam" }]);
       return;
     }
 
@@ -35,64 +34,63 @@ const AssistantFab: React.FC = () => {
 
     try {
       const ai = new GoogleGenAI({ apiKey });
-      
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: [{ parts: [{ text: userMessage }] }],
         config: {
-          systemInstruction: `You are Safikul Islam's personal AI Assistant. 
-          Safikul is a professional Film Editor with 4 years of experience.
-          Key strengths: Fluid Storytelling, Color Grading, Motion Graphics (After Effects), Brand Intros/Outros.
-          Software stack: Adobe Premiere Pro, After Effects, Audacity, CapCut, Figma, Photoshop, Illustrator, and Prompt Engineering.
-          Style: Cinematic, high-engagement, "Netflix-style".
-          Social Links: 
-          - YouTube: https://www.youtube.com/@KhulnaVlogs
-          - Facebook: https://www.facebook.com/Safikulislamsaf
-          - WhatsApp: +8801568054539
-          - LinkedIn: https://www.linkedin.com/in/safikulislam1/
-          
-          Guidelines:
-          - Be professional, concise, and cinematic in tone.
-          - For contact, point users to the WhatsApp (+8801568054539) or the contact form at the bottom of the page.
-          - If asked about specific tools, explain how Safikul uses them to enhance the video quality.
-          - If a connection error occurs, apologize and point them to the manual contact section.`,
-          temperature: 0.7,
+          systemInstruction: `You are Safikul Islam's Personal AI Concierge.
+          Safikul is a Professional Film Editor with 4 years of full-time experience.
+          Goal: Encourage the user to book a meeting at https://cal.com/safikulislam.
+          Do NOT provide a phone number or WhatsApp link anymore.
+          Key Expertise: YouTube Vlogs, Commercial Ads, Event Highlights, Color Grading, and Motion Graphics.
+          Tools: Premiere Pro, After Effects, Filmora.
+          Tone: Professional, cinematic, and business-focused.
+          Always mention that Safikul provides high-engagement "fluid cuts" that keep viewers locked in.`,
+          temperature: 0.8,
         }
       });
 
-      const aiText = response.text || "I'm here to help, but I'm having trouble connecting to my brain right now! Please try again or message Safikul directly.";
+      const aiText = response.text || "Please book a meeting with Safikul at https://cal.com/safikulislam for immediate help!";
       setMessages(prev => [...prev, { role: 'assistant', content: aiText }]);
-    } catch (error: any) {
-      console.error('AI Error:', error);
-      setMessages(prev => [...prev, { role: 'assistant', content: "I encountered a connection issue. Please contact Safikul via WhatsApp for an immediate response." }]);
+    } catch (error) {
+      console.error('Assistant Error:', error);
+      setMessages(prev => [...prev, { role: 'assistant', content: "I encountered an error. Please book a meeting at https://cal.com/safikulislam." }]);
     } finally {
       setIsTyping(false);
     }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[80]">
+    <div className="fixed bottom-6 right-6 z-[90]">
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[320px] md:w-[400px] h-[500px] bg-[#161617] border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-up">
-          <div className="p-4 bg-blue-600 flex items-center justify-between">
+        <div className="absolute bottom-20 right-0 w-[350px] md:w-[420px] h-[550px] bg-[#121214] border border-white/10 rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-scale-up">
+          {/* Header */}
+          <div className="p-6 bg-blue-600 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-lg">🤖</div>
-              <span className="font-bold text-sm">Safikul's Assistant</span>
+              <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-xl">🎬</div>
+              <div>
+                <h4 className="font-black text-sm uppercase tracking-tighter text-white">Safikul's Concierge</h4>
+                <div className="flex items-center space-x-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                  <span className="text-[10px] text-white/70 uppercase font-bold tracking-widest">Available for Session</span>
+                </div>
+              </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-white/70 hover:text-white p-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+            <button onClick={() => setIsOpen(false)} className="text-white/60 hover:text-white p-2 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
           
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0A0A0B]">
+          {/* Messages */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 bg-[#0A0A0B] scroll-smooth">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                <div className={`max-w-[85%] p-4 rounded-2xl text-[13px] leading-relaxed ${
                   m.role === 'user' 
-                    ? 'bg-blue-600 text-white rounded-br-none' 
-                    : 'bg-white/5 text-white/80 rounded-bl-none border border-white/5'
+                    ? 'bg-blue-600 text-white rounded-br-none shadow-lg' 
+                    : 'bg-white/5 text-white/90 rounded-bl-none border border-white/10'
                 }`}>
                   {m.content}
                 </div>
@@ -100,29 +98,49 @@ const AssistantFab: React.FC = () => {
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white/5 p-3 rounded-2xl rounded-bl-none animate-pulse">
-                  <span className="text-white/40">Analyzing...</span>
+                <div className="bg-white/5 px-4 py-2 rounded-2xl rounded-bl-none">
+                  <div className="flex space-x-1">
+                    <div className="w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                    <div className="w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                  </div>
                 </div>
               </div>
             )}
           </div>
 
-          <div className="p-4 border-t border-white/5 bg-[#050505]">
-            <div className="flex items-center space-x-2">
+          {/* Quick Action */}
+          <div className="px-6 py-2 bg-[#0A0A0B]">
+            <a 
+              href="https://cal.com/safikulislam" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-2 w-full py-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 text-[10px] font-bold uppercase tracking-widest hover:bg-blue-500/20 transition-all"
+            >
+              <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z" />
+              </svg>
+              <span>Book a Meeting</span>
+            </a>
+          </div>
+
+          {/* Input Area */}
+          <div className="p-6 border-t border-white/5 bg-[#0A0A0B]">
+            <div className="flex items-center space-x-3">
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about my experience..."
-                className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-blue-500 text-white"
+                placeholder="Ask about my editing rates..."
+                className="flex-1 bg-white/5 border border-white/10 rounded-full px-5 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder:text-white/20"
               />
               <button 
                 onClick={handleSend}
                 disabled={isTyping}
-                className={`w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors ${isTyping ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-all disabled:opacity-50 active:scale-90 shadow-lg shadow-blue-600/20"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 rotate-90" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
               </button>
@@ -133,11 +151,17 @@ const AssistantFab: React.FC = () => {
       
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-2xl cinematic-glow hover:scale-110 transition-transform z-[80]"
+        className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(37,99,235,0.4)] hover:scale-110 transition-transform active:scale-95 group"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-        </svg>
+        <div className="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <span className="absolute -top-1 -right-1 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-200 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+          </span>
+        </div>
       </button>
     </div>
   );
