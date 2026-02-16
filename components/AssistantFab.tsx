@@ -21,14 +21,20 @@ const AssistantFab: React.FC = () => {
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
+    // Safety check for API Key to prevent app-wide crash
+    const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+    if (!apiKey) {
+      setMessages(prev => [...prev, { role: 'assistant', content: "I'm currently offline as my configuration is being updated. Please use the WhatsApp button below!" }]);
+      return;
+    }
+
     const userMessage = input;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsTyping(true);
 
     try {
-      // Create instance right before call as per guidelines for best results with environment keys
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey });
       
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
@@ -58,13 +64,7 @@ const AssistantFab: React.FC = () => {
       setMessages(prev => [...prev, { role: 'assistant', content: aiText }]);
     } catch (error: any) {
       console.error('AI Error:', error);
-      let errorMsg = "I encountered a connection issue. This can happen if the network is unstable or if there's a temporary service interruption.";
-      
-      if (error?.message?.includes('API_KEY')) {
-        errorMsg = "There is a configuration issue with the API service. Please try contacting Safikul through the WhatsApp or contact form below.";
-      }
-      
-      setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "I encountered a connection issue. Please contact Safikul via WhatsApp for an immediate response." }]);
     } finally {
       setIsTyping(false);
     }
@@ -86,7 +86,7 @@ const AssistantFab: React.FC = () => {
             </button>
           </div>
           
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0A0A0B]">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
@@ -107,7 +107,7 @@ const AssistantFab: React.FC = () => {
             )}
           </div>
 
-          <div className="p-4 border-t border-white/5 bg-[#0A0A0B]">
+          <div className="p-4 border-t border-white/5 bg-[#050505]">
             <div className="flex items-center space-x-2">
               <input 
                 type="text" 

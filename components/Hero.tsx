@@ -11,86 +11,98 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ 
   onWatchShowreel, 
   title = "TURNING RAW FOOTAGE INTO CINEMA",
-  subtitle = "4+ Years of crafting high-engagement edits with fluid transitions and professional color grading.",
+  subtitle = "Professional Film Editor with 4+ years of experience in crafting high-engagement stories for the digital age.",
   bgUrl = "https://images.unsplash.com/photo-1492691523567-6170f229c411?q=80&w=2070&auto=format&fit=crop"
 }) => {
-  // Split title into parts to maintain the cinematic style
   const words = title.split(' ');
-  const firstHalf = words.slice(0, Math.ceil(words.length / 2)).join(' ');
-  const secondHalf = words.slice(Math.ceil(words.length / 2)).join(' ');
+  const firstLine = words.slice(0, Math.ceil(words.length / 2)).join(' ');
+  const secondLine = words.slice(Math.ceil(words.length / 2)).join(' ');
 
   return (
-    <section className="relative min-h-[95vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0B]/40 via-[#0A0A0B]/80 to-[#0A0A0B] z-10" />
-        <div className="absolute inset-0 overflow-hidden opacity-40">
-           <div className="absolute top-[-5%] left-[-5%] w-[110%] h-[110%] bg-cover bg-center animate-slow-pan" 
-                style={{ backgroundImage: `url('${bgUrl}')` }} />
-        </div>
-        <div className="absolute top-1/3 -left-20 w-72 h-72 bg-blue-600/20 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/3 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[150px] animate-pulse delay-1000" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]">
+      {/* Background Watermark Text - Super Modern Aesthetic */}
+      <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden z-0">
+        <h2 className="text-[25vw] font-black text-white/[0.02] leading-none whitespace-nowrap animate-watermark">
+          SAFIKUL ISLAM • EDITOR • SAFIKUL ISLAM • EDITOR
+        </h2>
       </div>
 
-      <div className="relative z-20 text-center px-6 w-full max-w-7xl mx-auto">
-        <div className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in backdrop-blur-md">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-          </span>
-          <span className="text-blue-400 font-bold tracking-[0.3em] text-[10px] uppercase">
-            Available for Projects 2026
-          </span>
+      {/* Hero Background Image with Optimized Overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-transparent to-[#0A0A0B]/50 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <div 
+          className="absolute inset-0 bg-cover bg-center scale-110 animate-subtle-zoom opacity-40"
+          style={{ backgroundImage: `url('${bgUrl}')` }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-20 container mx-auto px-6 text-center">
+        <div className="inline-block mb-6 animate-fade-in-up">
+          <div className="px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-md flex items-center space-x-2">
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            <span className="text-[10px] font-bold tracking-[0.3em] text-blue-400 uppercase">Available for Hire • 2026</span>
+          </div>
         </div>
 
-        <h1 className="flex flex-col items-center justify-center font-serif font-black leading-[0.95] tracking-tighter mb-10">
-          <span className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl opacity-90 animate-slide-up uppercase">{firstHalf}</span>
-          <span className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-blue-600 drop-shadow-2xl animate-slide-up delay-100 uppercase">{secondHalf}</span>
+        <h1 className="flex flex-col items-center justify-center font-serif font-black leading-[0.85] tracking-tighter mb-8 sm:mb-12">
+          <span className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] text-white animate-reveal-text">
+            {firstLine}
+          </span>
+          <span className="text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-blue-600 animate-reveal-text delay-200">
+            {secondLine}
+          </span>
         </h1>
-        
-        <div className="max-w-2xl mx-auto mb-12">
-          <p className="text-base sm:text-lg md:text-xl text-white/50 leading-relaxed font-light animate-fade-in delay-500">
-            {subtitle}
-          </p>
-        </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-fade-in delay-700">
+        <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-white/50 leading-relaxed font-light mb-12 animate-fade-in delay-500">
+          {subtitle}
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-in delay-700">
           <button 
-            type="button"
             onClick={onWatchShowreel}
-            className="w-full sm:w-auto group relative px-10 py-5 bg-white text-black font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 z-30 shadow-[0_15px_35px_rgba(255,255,255,0.1)]"
+            className="group relative w-full sm:w-auto px-10 py-5 bg-white text-black font-black rounded-full overflow-hidden transition-all hover:scale-110 active:scale-95 cinematic-glow"
           >
-            <span className="relative z-10 flex items-center justify-center uppercase tracking-tight text-base">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 fill-current" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
+            <span className="relative z-10 flex items-center justify-center uppercase tracking-tight">
+              <svg className="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
               Watch Showreel
             </span>
-            <div className="absolute inset-0 bg-blue-600 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            <div className="absolute inset-0 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
           </button>
           
           <a 
             href="#portfolio"
-            className="w-full sm:w-auto px-10 py-5 border-2 border-white/10 rounded-full font-black text-white uppercase tracking-tight text-base hover:bg-white/10 hover:border-white/40 transition-all z-30 text-center"
+            className="w-full sm:w-auto px-10 py-5 border border-white/10 rounded-full font-black text-white uppercase tracking-tight hover:bg-white/5 hover:border-white/40 transition-all text-center"
           >
-            View Portfolio
+            View Projects
           </a>
         </div>
       </div>
 
+      {/* Decorative Scanlines for Cinematic Texture */}
+      <div className="absolute inset-0 pointer-events-none z-30 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,118,0.06))] bg-[length:100%_4px,3px_100%]" />
+
       <style>{`
-        @keyframes slowPan {
-          0% { transform: scale(1.1) translate(0, 0); }
-          50% { transform: scale(1.15) translate(-1%, -1%); }
-          100% { transform: scale(1.1) translate(0, 0); }
+        @keyframes subtleZoom {
+          from { transform: scale(1.1); }
+          to { transform: scale(1); }
         }
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes watermark {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
-        .animate-slow-pan { animation: slowPan 25s infinite ease-in-out; }
-        .animate-slide-up { animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-        .delay-100 { animation-delay: 0.15s; }
+        @keyframes revealText {
+          from { opacity: 0; transform: translateY(40px) skewY(2deg); }
+          to { opacity: 1; transform: translateY(0) skewY(0deg); }
+        }
+        .animate-subtle-zoom { animation: subtleZoom 15s ease-out forwards; }
+        .animate-watermark { animation: watermark 40s linear infinite; }
+        .animate-reveal-text { animation: revealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .animate-fade-in-up { animation: revealText 0.8s ease-out forwards; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
       `}</style>
     </section>
   );
