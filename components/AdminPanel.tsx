@@ -15,31 +15,24 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, onUpdateData, current
 
   const handleSaveContent = () => {
     onUpdateData(localData);
-    setMessage('Content saved successfully!');
+    setMessage('Content successfully published to live site.');
     setTimeout(() => setMessage(''), 3000);
   };
 
   const handleChangePassword = () => {
     const storedPass = localStorage.getItem('safikul_admin_pass') || 'admin';
     if (passwords.old !== storedPass) {
-      setMessage('Old password incorrect!');
+      setMessage('Existing key is incorrect.');
     } else if (passwords.new !== passwords.confirm) {
-      setMessage('Passwords do not match!');
+      setMessage('New keys do not match.');
     } else if (passwords.new.length < 4) {
-      setMessage('Password too short (min 4 chars)');
+      setMessage('Key must be at least 4 characters.');
     } else {
       localStorage.setItem('safikul_admin_pass', passwords.new);
-      setMessage('Password updated successfully!');
+      setMessage('Security key updated.');
       setPasswords({ old: '', new: '', confirm: '' });
     }
     setTimeout(() => setMessage(''), 3000);
-  };
-
-  const handleResetToDefault = () => {
-    if (confirm("Reset all site content to factory defaults? This will erase all your custom images and text.")) {
-      localStorage.removeItem('safikul_data');
-      window.location.reload();
-    }
   };
 
   const handleItemChange = (index: number, field: string, value: string) => {
@@ -48,204 +41,150 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, onUpdateData, current
     setLocalData({ ...localData, portfolio: newItems });
   };
 
+  const InputField = ({ label, value, onChange, placeholder, type = "text" }: any) => (
+    <div className="space-y-2">
+      <label className="text-[10px] uppercase font-black tracking-[0.2em] text-white/30 ml-1">{label}</label>
+      <input 
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-600 transition-all font-light"
+      />
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-[#0A0A0B] pt-24 pb-12 px-4 md:px-6">
-      <div className="max-w-4xl mx-auto bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden shadow-2xl">
-        <div className="flex flex-col sm:flex-row border-b border-white/5 bg-white/[0.02]">
-          <div className="flex">
+    <div className="min-h-screen bg-[#000] text-white pt-32 pb-24 px-6 md:px-12">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div>
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">Studio<br/><span className="text-blue-600">Control.</span></h2>
+            <p className="text-white/30 text-lg">Managing the digital presence of Safikul Islam.</p>
+          </div>
+          
+          <div className="flex space-x-4">
             <button 
               onClick={() => setActiveTab('content')}
-              className={`flex-1 sm:flex-none px-6 md:px-8 py-5 font-bold text-xs uppercase tracking-widest ${activeTab === 'content' ? 'text-blue-500 border-b-2 border-blue-500 bg-white/5' : 'text-white/40'}`}
+              className={`text-[11px] font-black uppercase tracking-[0.3em] pb-2 transition-all border-b-2 ${activeTab === 'content' ? 'border-blue-600 text-white' : 'border-transparent text-white/20'}`}
             >
-              Site Content
+              Content
             </button>
             <button 
               onClick={() => setActiveTab('security')}
-              className={`flex-1 sm:flex-none px-6 md:px-8 py-5 font-bold text-xs uppercase tracking-widest ${activeTab === 'security' ? 'text-blue-500 border-b-2 border-blue-500 bg-white/5' : 'text-white/40'}`}
+              className={`text-[11px] font-black uppercase tracking-[0.3em] pb-2 transition-all border-b-2 ${activeTab === 'security' ? 'border-blue-600 text-white' : 'border-transparent text-white/20'}`}
             >
               Security
             </button>
+            <button 
+              onClick={onLogout}
+              className="text-[11px] font-black uppercase tracking-[0.3em] text-red-500 hover:text-red-400 transition-colors pl-8"
+            >
+              Exit
+            </button>
           </div>
-          <button 
-            onClick={onLogout}
-            className="sm:ml-auto px-8 py-5 font-bold text-xs uppercase tracking-widest text-red-400 hover:bg-red-400/10 border-t sm:border-t-0 border-white/5"
-          >
-            Exit Admin
-          </button>
         </div>
 
-        <div className="p-4 md:p-10">
-          {message && (
-            <div className={`mb-6 p-4 rounded-xl text-center font-bold text-sm animate-fade-in ${message.includes('success') ? 'bg-green-600/20 text-green-400' : 'bg-red-600/20 text-red-400'}`}>
-              {message}
-            </div>
-          )}
+        {message && (
+          <div className="fixed top-32 right-12 z-[200] bg-blue-600 text-white px-8 py-4 rounded-sm font-black text-[10px] uppercase tracking-widest shadow-2xl animate-fade-in">
+            {message}
+          </div>
+        )}
 
-          {activeTab === 'content' ? (
-            <div className="space-y-12">
-              <section>
-                <h3 className="text-xl font-serif font-bold mb-6 text-white/90 border-l-4 border-blue-500 pl-4">Hero Section (Main Banner)</h3>
-                <div className="space-y-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold text-white/30 ml-2">Main Title Text</label>
-                    <input 
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:border-blue-500 outline-none transition-all"
-                      value={localData.heroTitle}
-                      onChange={(e) => setLocalData({...localData, heroTitle: e.target.value})}
-                      placeholder="e.g. TURNING RAW FOOTAGE INTO CINEMA"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold text-white/30 ml-2">Sub-description</label>
-                    <textarea 
-                      rows={3}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white resize-none focus:border-blue-500 outline-none transition-all"
-                      value={localData.heroSubtitle}
-                      onChange={(e) => setLocalData({...localData, heroSubtitle: e.target.value})}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold text-white/30 ml-2">Hero Background Photo URL</label>
-                    <input 
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:border-blue-500 outline-none transition-all"
-                      value={localData.heroBgUrl}
-                      onChange={(e) => setLocalData({...localData, heroBgUrl: e.target.value})}
-                      placeholder="https://images.unsplash.com/..."
-                    />
-                  </div>
+        {activeTab === 'content' ? (
+          <div className="space-y-24">
+            {/* Hero Configuration */}
+            <section className="reveal active">
+              <div className="flex items-center space-x-6 mb-12">
+                <div className="h-[1px] w-12 bg-blue-600"></div>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">Hero Section</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <InputField 
+                  label="Hero Title" 
+                  value={localData.heroTitle} 
+                  onChange={(e: any) => setLocalData({...localData, heroTitle: e.target.value})}
+                />
+                <InputField 
+                  label="Background Image URL" 
+                  value={localData.heroBgUrl} 
+                  onChange={(e: any) => setLocalData({...localData, heroBgUrl: e.target.value})}
+                />
+                <div className="md:col-span-2">
+                  <InputField 
+                    label="Hero Subtitle" 
+                    value={localData.heroSubtitle} 
+                    onChange={(e: any) => setLocalData({...localData, heroSubtitle: e.target.value})}
+                  />
                 </div>
-              </section>
+              </div>
+            </section>
 
-              <section>
-                <div className="flex items-center justify-between mb-8 border-l-4 border-blue-500 pl-4">
-                  <h3 className="text-xl font-serif font-bold text-white/90">Portfolio Items</h3>
-                  <span className="text-[10px] text-white/30 uppercase font-bold">{localData.portfolio.length} Projects</span>
-                </div>
-                <div className="grid grid-cols-1 gap-8">
-                  {localData.portfolio.map((item: any, idx: number) => (
-                    <div key={item.id} className="p-6 md:p-8 bg-white/[0.03] border border-white/10 rounded-3xl space-y-6 relative group hover:border-blue-500/30 transition-all">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-4">
-                          <div className="space-y-1">
-                            <label className="text-[10px] uppercase font-bold text-white/30">Project Title</label>
-                            <input 
-                              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white"
-                              value={item.title}
-                              onChange={(e) => handleItemChange(idx, 'title', e.target.value)}
-                            />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] uppercase font-bold text-white/30">Thumbnail Photo URL</label>
-                            <input 
-                              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white"
-                              value={item.thumbnailUrl}
-                              onChange={(e) => handleItemChange(idx, 'thumbnailUrl', e.target.value)}
-                              placeholder="Image Link"
-                            />
-                          </div>
-                        </div>
-                        <div className="space-y-4">
-                           <div className="space-y-1">
-                            <label className="text-[10px] uppercase font-bold text-white/30">Category</label>
-                            <select 
-                              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white appearance-none"
-                              value={item.category}
-                              onChange={(e) => handleItemChange(idx, 'category', e.target.value)}
-                            >
-                              <option>Vlog</option>
-                              <option>Commercial</option>
-                              <option>Event</option>
-                              <option>Highlight</option>
-                            </select>
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] uppercase font-bold text-white/30">Video Embed URL (YouTube/Vimeo)</label>
-                            <input 
-                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white"
-                                value={item.videoUrl}
-                                onChange={(e) => handleItemChange(idx, 'videoUrl', e.target.value)}
-                                placeholder="https://www.youtube.com/embed/..."
-                              />
-                          </div>
+            {/* Portfolio Configuration */}
+            <section className="reveal active">
+              <div className="flex items-center space-x-6 mb-12">
+                <div className="h-[1px] w-12 bg-blue-600"></div>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">Portfolio Items</span>
+              </div>
+              <div className="grid grid-cols-1 gap-16">
+                {localData.portfolio.map((item: any, idx: number) => (
+                  <div key={item.id} className="grid grid-cols-1 lg:grid-cols-12 gap-12 p-8 border border-white/5 bg-white/[0.01] rounded-sm group hover:border-blue-600/30 transition-all">
+                    <div className="lg:col-span-4">
+                      <div className="aspect-video bg-neutral-900 rounded-sm overflow-hidden mb-4 relative">
+                        <img src={item.thumbnailUrl} alt="Preview" className="w-full h-full object-cover opacity-60" />
+                        <div className="absolute inset-0 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-white/20">
+                          Live Preview
                         </div>
                       </div>
-                      <div className="pt-2">
-                        <div className="flex items-center space-x-4">
-                           <img src={item.thumbnailUrl} alt="preview" className="w-16 h-12 object-cover rounded-lg border border-white/10" />
-                           <span className="text-[10px] text-white/20 italic">Project Preview Active</span>
-                        </div>
-                      </div>
+                      <span className="text-[10px] font-black text-white/20 uppercase tracking-widest">Project ID: {item.id}</span>
                     </div>
-                  ))}
-                </div>
-              </section>
-              
-              <div className="sticky bottom-6">
-                <button 
-                  onClick={handleSaveContent}
-                  className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl cinematic-glow shadow-[0_10px_40px_rgba(37,99,235,0.4)] transition-all active:scale-95"
-                >
-                  SAVE ALL CHANGES
-                </button>
+                    <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <InputField label="Project Title" value={item.title} onChange={(e: any) => handleItemChange(idx, 'title', e.target.value)} />
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase font-black tracking-[0.2em] text-white/30 ml-1">Category</label>
+                        <select 
+                          value={item.category}
+                          onChange={(e: any) => handleItemChange(idx, 'category', e.target.value)}
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-6 py-4 text-white focus:outline-none focus:border-blue-600 transition-all appearance-none cursor-pointer"
+                        >
+                          <option>Vlog</option>
+                          <option>Commercial</option>
+                          <option>Event</option>
+                          <option>Highlight</option>
+                        </select>
+                      </div>
+                      <InputField label="Thumbnail URL" value={item.thumbnailUrl} onChange={(e: any) => handleItemChange(idx, 'thumbnailUrl', e.target.value)} />
+                      <InputField label="Video Embed URL" value={item.videoUrl} onChange={(e: any) => handleItemChange(idx, 'videoUrl', e.target.value)} />
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          ) : (
-            <div className="max-w-md mx-auto space-y-10 py-10">
-              <div className="space-y-6">
-                <h3 className="text-xl font-serif font-bold text-white/90">Dashboard Security</h3>
-                <div className="space-y-4">
-                  <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-white/30 ml-2">Current Key</label>
-                    <input 
-                      type="password"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white outline-none focus:border-blue-500"
-                      value={passwords.old}
-                      onChange={(e) => setPasswords({...passwords, old: e.target.value})}
-                      placeholder="Old Password"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-white/30 ml-2">New Access Key</label>
-                    <input 
-                      type="password"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white outline-none focus:border-blue-500"
-                      value={passwords.new}
-                      onChange={(e) => setPasswords({...passwords, new: e.target.value})}
-                      placeholder="New Password"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-white/30 ml-2">Confirm New Key</label>
-                    <input 
-                      type="password"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white outline-none focus:border-blue-500"
-                      value={passwords.confirm}
-                      onChange={(e) => setPasswords({...passwords, confirm: e.target.value})}
-                      placeholder="Confirm New Password"
-                    />
-                  </div>
-                </div>
-                <button 
-                  onClick={handleChangePassword}
-                  className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all"
-                >
-                  UPDATE SECURITY KEY
-                </button>
-              </div>
+            </section>
 
-              <div className="pt-10 border-t border-white/5 text-center">
-                <h3 className="text-sm font-bold text-red-500/80 mb-2 uppercase tracking-widest">Danger Zone</h3>
-                <p className="text-white/30 text-xs mb-6 px-4">Resetting will permanently delete all your uploaded photos and text changes.</p>
-                <button 
-                  onClick={handleResetToDefault}
-                  className="px-8 py-3 border border-red-500/20 text-red-500/50 hover:bg-red-500 hover:text-white rounded-full text-[10px] font-bold transition-all uppercase tracking-widest"
-                >
-                  Reset Factory Defaults
-                </button>
-              </div>
+            <div className="pt-12 border-t border-white/5">
+              <button 
+                onClick={handleSaveContent}
+                className="w-full py-8 bg-blue-600 text-white font-black uppercase tracking-[0.4em] text-[12px] hover:bg-blue-700 transition-all active:scale-[0.98] shadow-2xl shadow-blue-600/20"
+              >
+                Publish Changes to Production
+              </button>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="max-w-md mx-auto space-y-12 py-12 reveal active">
+            <div className="space-y-8">
+              <InputField label="Current Key" type="password" value={passwords.old} onChange={(e: any) => setPasswords({...passwords, old: e.target.value})} />
+              <InputField label="New Access Key" type="password" value={passwords.new} onChange={(e: any) => setPasswords({...passwords, new: e.target.value})} />
+              <InputField label="Confirm Key" type="password" value={passwords.confirm} onChange={(e: any) => setPasswords({...passwords, confirm: e.target.value})} />
+              <button 
+                onClick={handleChangePassword}
+                className="w-full py-6 border border-white/20 text-white font-black uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:text-black transition-all"
+              >
+                Update Access Key
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

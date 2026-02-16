@@ -67,8 +67,9 @@ const Contact: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Safikul Islam — © 2026</span>
           </div>
           
-          <div className="text-[10px] font-black uppercase tracking-[0.4em]">
-            Curated with Precision
+          <div className="flex items-center space-x-8">
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">Curated with Precision</span>
+            <a href="#admin" className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 hover:text-blue-600 transition-colors ml-4">Manage</a>
           </div>
         </div>
       </div>
