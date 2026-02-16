@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
           
           <div className="flex items-center space-x-8">
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Curated with Precision</span>
-            <Link to="/admin" className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 hover:text-blue-600 transition-colors ml-4">Manage</Link>
+            <Link to="/admin" className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 hover:text-blue-600 transition-colors ml-4 border border-white/5 px-3 py-1 rounded-sm">Admin Login</Link>
           </div>
         </div>
       </div>

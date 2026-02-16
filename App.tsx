@@ -73,7 +73,7 @@ const AppContent = () => {
     if (user === 'admin' && pass === storedPass) {
       setIsAdmin(true);
     } else {
-      alert('Invalid Credentials.');
+      alert('Authentication failed. Check your credentials.');
     }
   };
 
@@ -92,7 +92,9 @@ const AppContent = () => {
                 subtitle={siteData.heroSubtitle}
                 bgUrl={siteData.heroBgUrl}
               />
-              <PortfolioGrid onItemSelect={handleOpenModal} items={siteData.portfolio.slice(0, 4)} />
+              <div className="reveal">
+                <PortfolioGrid onItemSelect={handleOpenModal} items={siteData.portfolio.slice(0, 4)} />
+              </div>
               <div className="flex justify-center pb-24">
                  <a href="/work" className="text-[11px] font-black uppercase tracking-[0.4em] border border-white/10 px-12 py-5 rounded-full hover:bg-white hover:text-black transition-all">View All Works</a>
               </div>
@@ -123,15 +125,27 @@ const AppContent = () => {
                 onUpdateData={handleUpdateData} 
               />
             ) : (
-              <div className="min-h-screen bg-[#000] flex items-center justify-center px-6">
-                <form onSubmit={handleLogin} className="max-w-md w-full bg-white/[0.02] border border-white/5 p-12 rounded-sm space-y-6">
-                  <h2 className="text-2xl font-black uppercase tracking-tighter text-center">Admin Access</h2>
-                  <div className="space-y-4">
-                    <input id="admin_user" className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-4 text-white outline-none" placeholder="User" />
-                    <input id="admin_pass" type="password" className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-4 text-white outline-none" placeholder="Key" />
+              <div className="min-h-screen bg-[#000] flex items-center justify-center px-6 pt-24">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-[20vw] font-black opacity-5 uppercase tracking-tighter">Secure</div>
+                </div>
+                <form onSubmit={handleLogin} className="relative z-10 max-w-md w-full bg-white/[0.02] border border-white/5 p-12 rounded-sm space-y-8 backdrop-blur-3xl">
+                  <div className="text-center space-y-2">
+                    <h2 className="text-3xl font-black uppercase tracking-tighter">Studio Access</h2>
+                    <p className="text-[10px] text-white/30 uppercase tracking-[0.3em]">Restricted to Safikul Islam</p>
                   </div>
-                  <button type="submit" className="w-full py-4 bg-blue-600 text-white font-black uppercase tracking-widest text-[10px]">Authenticate</button>
-                  <a href="/" className="block text-center text-white/20 text-[10px] uppercase tracking-widest mt-4">Return Home</a>
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                        <label className="text-[9px] uppercase font-black text-white/20 tracking-widest ml-1">Username</label>
+                        <input id="admin_user" className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-4 text-white outline-none focus:border-blue-600 transition-colors" placeholder="admin" defaultValue="admin" />
+                    </div>
+                    <div className="space-y-1">
+                        <label className="text-[9px] uppercase font-black text-white/20 tracking-widest ml-1">Security Key</label>
+                        <input id="admin_pass" type="password" className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-4 text-white outline-none focus:border-blue-600 transition-colors" placeholder="••••••••" />
+                    </div>
+                  </div>
+                  <button type="submit" className="w-full py-5 bg-blue-600 text-white font-black uppercase tracking-[0.3em] text-[10px] hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 active:scale-95">Authenticate</button>
+                  <a href="/" className="block text-center text-white/20 text-[10px] uppercase tracking-widest mt-4 hover:text-white transition-colors">Return to Showcase</a>
                 </form>
               </div>
             )
