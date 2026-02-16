@@ -19,90 +19,103 @@ const Hero: React.FC<HeroProps> = ({
   const secondLine = words.slice(Math.ceil(words.length / 2)).join(' ');
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]">
-      {/* Background Watermark Text - Super Modern Aesthetic */}
-      <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden z-0">
-        <h2 className="text-[25vw] font-black text-white/[0.02] leading-none whitespace-nowrap animate-watermark">
-          SAFIKUL ISLAM • EDITOR • SAFIKUL ISLAM • EDITOR
-        </h2>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505] will-change-transform">
+      {/* Background Layer: Floating Orbs for Modern Depth */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] left-[15%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px] animate-float" />
+        <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] bg-indigo-600/10 rounded-full blur-[100px] animate-float-delayed" />
       </div>
 
-      {/* Hero Background Image with Optimized Overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-transparent to-[#0A0A0B]/50 z-10" />
-        <div className="absolute inset-0 bg-black/40 z-10" />
+      {/* Modern Split Backdrop */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
         <div 
-          className="absolute inset-0 bg-cover bg-center scale-110 animate-subtle-zoom opacity-40"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-[20s] ease-linear scale-110 animate-ken-burns"
           style={{ backgroundImage: `url('${bgUrl}')` }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-20 container mx-auto px-6 text-center">
-        <div className="inline-block mb-6 animate-fade-in-up">
-          <div className="px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-md flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-[10px] font-bold tracking-[0.3em] text-blue-400 uppercase">Available for Hire • 2026</span>
+      {/* Foreground Content */}
+      <div className="relative z-20 container mx-auto px-6">
+        <div className="flex flex-col items-center text-center">
+          
+          {/* Top Badge */}
+          <div className="mb-10 opacity-0 animate-fade-in-up">
+            <div className="inline-flex items-center space-x-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </span>
+              <span className="text-[10px] font-black tracking-[0.4em] text-white/70 uppercase">Available Now</span>
+            </div>
+          </div>
+
+          {/* Massive Kinetic Typography */}
+          <h1 className="flex flex-col mb-10 select-none">
+            <span className="text-5xl sm:text-7xl md:text-8xl lg:text-[11rem] font-black leading-[0.8] tracking-tighter text-white animate-reveal-top uppercase">
+              {firstLine}
+            </span>
+            <span className="text-6xl sm:text-8xl md:text-9xl lg:text-[13rem] font-serif italic leading-[0.85] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-white to-blue-400 animate-reveal-bottom uppercase">
+              {secondLine}
+            </span>
+          </h1>
+
+          {/* Refined Description */}
+          <p className="max-w-2xl text-base sm:text-lg md:text-xl text-white/40 leading-relaxed font-light mb-14 opacity-0 animate-fade-in delay-700">
+            {subtitle}
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 opacity-0 animate-fade-in delay-1000">
+            <button 
+              onClick={onWatchShowreel}
+              className="group relative w-full sm:w-auto px-12 py-5 bg-white text-black font-black rounded-full transition-transform hover:scale-105 active:scale-95 cinematic-glow overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center justify-center uppercase tracking-tighter text-base">
+                <svg className="w-5 h-5 mr-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                Watch Showreel
+              </span>
+              <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            </button>
+            
+            <a 
+              href="#portfolio"
+              className="w-full sm:w-auto px-12 py-5 border border-white/20 rounded-full font-black text-white uppercase tracking-tighter text-base hover:bg-white/10 hover:border-white/40 transition-all text-center"
+            >
+              Browse Works
+            </a>
           </div>
         </div>
-
-        <h1 className="flex flex-col items-center justify-center font-serif font-black leading-[0.85] tracking-tighter mb-8 sm:mb-12">
-          <span className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] text-white animate-reveal-text">
-            {firstLine}
-          </span>
-          <span className="text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-blue-600 animate-reveal-text delay-200">
-            {secondLine}
-          </span>
-        </h1>
-
-        <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-white/50 leading-relaxed font-light mb-12 animate-fade-in delay-500">
-          {subtitle}
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-in delay-700">
-          <button 
-            onClick={onWatchShowreel}
-            className="group relative w-full sm:w-auto px-10 py-5 bg-white text-black font-black rounded-full overflow-hidden transition-all hover:scale-110 active:scale-95 cinematic-glow"
-          >
-            <span className="relative z-10 flex items-center justify-center uppercase tracking-tight">
-              <svg className="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-              Watch Showreel
-            </span>
-            <div className="absolute inset-0 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
-          </button>
-          
-          <a 
-            href="#portfolio"
-            className="w-full sm:w-auto px-10 py-5 border border-white/10 rounded-full font-black text-white uppercase tracking-tight hover:bg-white/5 hover:border-white/40 transition-all text-center"
-          >
-            View Projects
-          </a>
-        </div>
       </div>
 
-      {/* Decorative Scanlines for Cinematic Texture */}
-      <div className="absolute inset-0 pointer-events-none z-30 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,118,0.06))] bg-[length:100%_4px,3px_100%]" />
-
       <style>{`
-        @keyframes subtleZoom {
-          from { transform: scale(1.1); }
-          to { transform: scale(1); }
+        @keyframes kenBurns {
+          0% { transform: scale(1.1) translate(0, 0); }
+          50% { transform: scale(1.15) translate(-1%, 1%); }
+          100% { transform: scale(1.1) translate(0, 0); }
         }
-        @keyframes watermark {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(2%, 4%) scale(1.05); }
         }
-        @keyframes revealText {
-          from { opacity: 0; transform: translateY(40px) skewY(2deg); }
-          to { opacity: 1; transform: translateY(0) skewY(0deg); }
+        @keyframes reveal {
+          from { opacity: 0; transform: translateY(60px) rotateX(-20deg); }
+          to { opacity: 1; transform: translateY(0) rotateX(0); }
         }
-        .animate-subtle-zoom { animation: subtleZoom 15s ease-out forwards; }
-        .animate-watermark { animation: watermark 40s linear infinite; }
-        .animate-reveal-text { animation: revealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-        .animate-fade-in-up { animation: revealText 0.8s ease-out forwards; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-500 { animation-delay: 0.5s; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-ken-burns { animation: kenBurns 30s linear infinite; }
+        .animate-float { animation: float 15s ease-in-out infinite; }
+        .animate-float-delayed { animation: float 18s ease-in-out infinite reverse; }
+        .animate-reveal-top { animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-reveal-bottom { animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+        .animate-fade-in-up { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
         .delay-700 { animation-delay: 0.7s; }
+        .delay-1000 { animation-delay: 1s; }
       `}</style>
     </section>
   );
