@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Contact: React.FC = () => {
   return (
@@ -48,9 +49,9 @@ const Contact: React.FC = () => {
                <div>
                   <span className="text-[10px] font-black uppercase tracking-widest text-white/20 block mb-6">Social</span>
                   <div className="flex flex-col space-y-3">
-                    <a href="https://www.youtube.com/@KhulnaVlogs" className="text-lg font-bold hover:text-blue-600 transition-colors">YouTube</a>
-                    <a href="https://www.facebook.com/Safikulislamsaf" className="text-lg font-bold hover:text-blue-600 transition-colors">Facebook</a>
-                    <a href="https://www.linkedin.com/in/safikulislam1/" className="text-lg font-bold hover:text-blue-600 transition-colors">LinkedIn</a>
+                    <a href="https://www.youtube.com/@KhulnaVlogs" target="_blank" rel="noopener" className="text-lg font-bold hover:text-blue-600 transition-colors">YouTube</a>
+                    <a href="https://www.facebook.com/Safikulislamsaf" target="_blank" rel="noopener" className="text-lg font-bold hover:text-blue-600 transition-colors">Facebook</a>
+                    <a href="https://www.linkedin.com/in/safikulislam1/" target="_blank" rel="noopener" className="text-lg font-bold hover:text-blue-600 transition-colors">LinkedIn</a>
                   </div>
                </div>
                <div className="col-span-2">
@@ -69,7 +70,7 @@ const Contact: React.FC = () => {
           
           <div className="flex items-center space-x-8">
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">Curated with Precision</span>
-            <a href="#admin" className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 hover:text-blue-600 transition-colors ml-4">Manage</a>
+            <Link to="/admin" className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 hover:text-blue-600 transition-colors ml-4">Manage</Link>
           </div>
         </div>
       </div>
