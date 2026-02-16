@@ -2,6 +2,15 @@
 import React from 'react';
 
 const AboutMe: React.FC = () => {
+  const tools = [
+    { name: 'Premiere Pro', color: '#9999FF' },
+    { name: 'After Effects', color: '#CF96FD' },
+    { name: 'Audacity', color: '#00E5FF' },
+    { name: 'Filmora', color: '#FFFFFF' },
+    { name: 'Photoshop', color: '#31A8FF' },
+    { name: 'DaVinci Resolve', color: '#FFB347' }
+  ];
+
   return (
     <section className="py-64 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -20,7 +29,7 @@ const AboutMe: React.FC = () => {
                  alt="Safikul"
                />
             </div>
-            <p className="mt-8 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Safikul Islam — Creative Director / Lead Editor</p>
+            <p className="mt-8 text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Safikul Islam — Lead Editor & Creative Director</p>
           </div>
 
           <div className="lg:col-span-7 reveal transition-delay-400 space-y-16">
@@ -30,23 +39,28 @@ const AboutMe: React.FC = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-white/5">
               <div>
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 block mb-6">Expertise</span>
-                <p className="text-white/40 leading-relaxed">
-                  Focusing on professional YouTube narrative editing, high-end commercials, and event highlights with 4+ years of industry pressure.
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 block mb-6">Experience</span>
+                <p className="text-white/40 leading-relaxed text-sm">
+                  4 years of full-time professional experience. I specialize in high-engagement "fluid cuts" for global brands and leading creators.
                 </p>
               </div>
               <div>
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 block mb-6">Philosophy</span>
-                <p className="text-white/40 leading-relaxed">
-                  Every cut must serve the heart. If a frame doesn't breathe life into the narrative, it doesn't belong.
+                <p className="text-white/40 leading-relaxed text-sm">
+                  Rhythm over rules. Every transition is a heartbeat, every frame is an emotion. Narrative precision is non-negotiable.
                 </p>
               </div>
             </div>
 
             <div className="pt-24">
-               <div className="flex flex-wrap gap-8">
-                  {['Premiere Pro', 'After Effects', 'Audacity', 'Filmora'].map(tool => (
-                    <span key={tool} className="text-[11px] font-black uppercase tracking-[0.3em] border-b border-white/10 pb-2 hover:border-blue-600 transition-all cursor-default">{tool}</span>
+               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 block mb-10">Technical Arsenal</span>
+               <div className="flex flex-wrap gap-x-10 gap-y-6">
+                  {tools.map(tool => (
+                    <div key={tool.name} className="group cursor-default">
+                        <span className="text-[11px] font-black uppercase tracking-[0.3em] border-b border-white/10 pb-2 group-hover:border-blue-600 group-hover:text-blue-500 transition-all block">
+                            {tool.name}
+                        </span>
+                    </div>
                   ))}
                </div>
             </div>
